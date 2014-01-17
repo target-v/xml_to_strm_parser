@@ -15,7 +15,6 @@ foreach ($data_array["channels"]["channel"] as &$channel) {
 		
 		foreach ($subchannel["subitems"] as &$subitem) {
 			foreach ($subitem as &$item){
-				
 				$item_title=clean_n($item["title"]);
 				
 				if(strncmp($item_title, "OFF", 3)!=0){ //we dont create named OFF channels
