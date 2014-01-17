@@ -1,21 +1,31 @@
 <?php
 
-$objects=xml2array("http://dl.dropbox.com/u/4735170/streams.xml");
+$data_array=xml2array("http://dl.dropbox.com/u/4735170/streams.xml");
 
 exec("rm ./canales -R");
 exec("mkdir ./canales");
-foreach ($objects["channels"]["channel"] as &$channel) {
-	exec("mkdir ./canales/".clean_n($channel["name"]));
 
+foreach ($data_array["channels"]["channel"] as &$channel) {
+	$channel_name=clean_n($channel["name"]);
+	exec("mkdir ./canales/".$channel_name);
+	
 	foreach ($channel["subchannel"] as &$subchannel) {
-		exec("mkdir ./canales/".clean_n($channel["name"])."/".clean_n($subchannel["name"]));
+		$subchannel_name=clean_n($subchannel["name"]);
+		exec("mkdir ./canales/".$channel_name."/".$subchannel_name);
+		
 		foreach ($subchannel["subitems"] as &$subitem) {
 			foreach ($subitem as &$item){
-				file_put_contents("./canales/".clean_n($channel["name"])."/".clean_n($subchannel["name"])."/".clean_n($item["title"]).".strm", $item["link"]);
-				echo "./canales/".$channel["name"]."/".clean_n($subchannel["name"])."/".clean_n($item["title"]).".strm";
-				//var_dump($item);
+				
+				$item_title=clean_n($item["title"]);
+				
+				if(strncmp($item_title, "OFF", 3)!=0){ //we dont create named OFF channels
+					file_put_contents("./canales/".$channel_name."/".$subchannel_name."/".$item_title.".strm", $item["link"]);
+					echo "./canales/".$channel_name."/".$subchannel_name."/".$item_title.".strm";
+					var_dump($item);
+				}
+
 			}
-	
+
 		}
 
 	}
