@@ -26,7 +26,7 @@ function parse_xml_to_strms($url, $folder_name){
 	
 					if(strncmp($item_title, "OFF", 3)!=0){ //we dont create named OFF channels
 						file_put_contents("./".$folder_name."/".$channel_name."/".$subchannel_name."/".$item_title.".strm", $item["link"]);
-						echo "./".$folder_name."/".$channel_name."/".$subchannel_name."/".$item_title.".strm </br>";
+						echo "./".$folder_name."/".$channel_name."/".$subchannel_name."/".$item_title.".strm </br> \n";
 						//var_dump($item);
 					}
 	
