@@ -1,40 +1,50 @@
 <?php
 
-$data_array=xml2array("http://dl.dropbox.com/u/4735170/streams.xml");
-
-exec("rm ./canales -R");
-exec("mkdir ./canales");
-
-foreach ($data_array["channels"]["channel"] as &$channel) {
-	$channel_name=clean_n($channel["name"]);
-	exec("mkdir ./canales/".$channel_name);
-	
-	foreach ($channel["subchannel"] as &$subchannel) {
-		$subchannel_name=clean_n($subchannel["name"]);
-		exec("mkdir ./canales/".$channel_name."/".$subchannel_name);
-		
-		foreach ($subchannel["subitems"] as &$subitem) {
-			foreach ($subitem as &$item){
-				$item_title=clean_n($item["title"]);
-				
-				if(strncmp($item_title, "OFF", 3)!=0){ //we dont create named OFF channels
-					file_put_contents("./canales/".$channel_name."/".$subchannel_name."/".$item_title.".strm", $item["link"]);
-					echo "./canales/".$channel_name."/".$subchannel_name."/".$item_title.".strm";
-					var_dump($item);
-				}
-
-			}
-
-		}
-
-	}
-
-}
+$url="http://dl.dropbox.com/u/4735170/streams.xml";
+$folder_name="canales1";
+parse_xml_to_strms($url,$folder_name);
 
 //////////////////////////Functions
+function parse_xml_to_strms($url, $folder_name){
+	
+	$data_array=xml2array($url);
+	
+	exec("rm ./".$folder_name." -R");
+	exec("mkdir ./".$folder_name);
+	
+	foreach ($data_array["channels"]["channel"] as &$channel) {
+		$channel_name=clean_n($channel["name"]);
+		exec("mkdir ./".$folder_name."/".$channel_name);
+	
+		foreach ($channel["subchannel"] as &$subchannel) {
+			$subchannel_name=clean_n($subchannel["name"]);
+			exec("mkdir ./".$folder_name."/".$channel_name."/".$subchannel_name);
+	
+			foreach ($subchannel["subitems"] as &$subitem) {
+				foreach ($subitem as &$item){
+					$item_title=clean_n($item["title"]);
+	
+					if(strncmp($item_title, "OFF", 3)!=0){ //we dont create named OFF channels
+						file_put_contents("./".$folder_name."/".$channel_name."/".$subchannel_name."/".$item_title.".strm", $item["link"]);
+						echo "./".$folder_name."/".$channel_name."/".$subchannel_name."/".$item_title.".strm </br>";
+						//var_dump($item);
+					}
+	
+				}
+	
+			}
+	
+		}
+	
+	}
+}
 
 function clean_n($str){
-	return preg_replace("/[^a-zA-Z0-9]/", "",$str);
+	return preg_replace("/[^a-zA-Z0-9+]/", "",$str);
+}
+
+function xmlEscape($string) {
+	return str_replace(array('&',  '\''), array('&amp;', '&apos;' ), $string);
 }
 
 function xml2array($url, $get_attributes = 1, $priority = 'tag')
@@ -46,9 +56,9 @@ function xml2array($url, $get_attributes = 1, $priority = 'tag')
 	}
 	$parser = xml_parser_create('');
 
-
 	$contents .= file_get_contents($url);
-	$contents = str_replace('&', '&amp;', $contents);
+	$contents = xmlEscape($contents);
+// 	$contents = str_replace('&', '&amp;', $contents);
 
 	xml_parser_set_option($parser, XML_OPTION_TARGET_ENCODING, "UTF-8");
 	xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
