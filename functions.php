@@ -22,26 +22,26 @@ function parse_xml_to_strms($url, $folder_name){
 
 	$data_array=xml2array($url);
 
-	exec("rm ./".$folder_name." -R");
-	exec("mkdir ./".$folder_name);
+	exec("rm ".dirname(__FILE__)."/".$folder_name." -R");
+	exec("mkdir ".dirname(__FILE__)."/".$folder_name);
 
-	exec("mkdir ./".$folder_name."/ALL_STRM");
+	exec("mkdir ".dirname(__FILE__)."/".$folder_name."/ALL_STRM");
 	foreach ($data_array["channels"]["channel"] as &$channel) {
 		$channel_name=clean_n($channel["name"]);
-		exec("mkdir ./".$folder_name."/".$channel_name);
+		exec("mkdir ".dirname(__FILE__)."/".$folder_name."/".$channel_name);
 
 		foreach ($channel["subchannel"] as &$subchannel) {
 			$subchannel_name=clean_n($subchannel["name"]);
-			exec("mkdir ./".$folder_name."/".$channel_name."/".$subchannel_name);
+			exec("mkdir ".dirname(__FILE__)."/".$folder_name."/".$channel_name."/".$subchannel_name);
 
 			foreach ($subchannel["subitems"] as &$subitem) {
 				foreach ($subitem as &$item){
 					$item_title=clean_n($item["title"]);
 
 					if(strncmp($item_title, "OFF", 3)!=0){ //we dont create named OFF channels
-						file_put_contents("./".$folder_name."/".$channel_name."/".$subchannel_name."/".$item_title.".strm", $item["link"]);
-						file_put_contents("./".$folder_name."/ALL_STRM/".$item_title.".strm", $item["link"]);
-						echo "./".$folder_name."/".$channel_name."/".$subchannel_name."/".$item_title.".strm </br> \n";
+						file_put_contents(dirname(__FILE__)."/".$folder_name."/".$channel_name."/".$subchannel_name."/".$item_title.".strm", $item["link"]);
+						file_put_contents(dirname(__FILE__)."/".$folder_name."/ALL_STRM/".$item_title.".strm", $item["link"]);
+						echo $folder_name."/".$channel_name."/".$subchannel_name."/".$item_title.".strm </br> \n";
 						//var_dump($item);
 					}
 
