@@ -3,7 +3,7 @@ xml_to_strm_parser
 
 Created for my personal use, maybe can help someone if it's in my situation, XBMC running on a Raspberry Pi to see national TV using rtmp streams. It is much more faster than use an XBMC addon, remember that the RPi as very few process capacity.
 
-This script parse a stream list from a XML to create .strm files inside autocreated folders. From a URL it takes a .xml file suposed to be maintained with rtmp streams.
+This script parse a stream list from a XML to create .strm. From a URL it takes a .xml file suposed to be maintained with rtmp streams.
 
 This file has a syntax like:
 
