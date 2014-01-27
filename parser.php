@@ -2,33 +2,20 @@
 //Include script functions
 include_once 'functions.php';
 
-//Script options
+$folder_name="channels1";
 $url="http://dl.dropbox.com/u/4735170/streams.xml";
-//$url="http://dl.dropboxusercontent.com/u/142085967/Lista2.xml";
-$folder_name="channels";
-$persistent_file_name="persistent_data.txt";
+parse_xml_to_strms($url,$folder_name, "streams.xml");
 
-//Script
-$persisten_data=array();
-load_persistent_data( $persisten_data, $persistent_file_name);
+$folder_name="channels2";
+$url="http://dl.dropboxusercontent.com/u/142085967/Lista.xml";
+parse_xml_to_strms($url,$folder_name, "Lista.xml");
 
-$data = array("last_file_md5"=>md5(file_get_contents($url)));
+$folder_name="channels3";
+$url="http://dl.dropboxusercontent.com/u/8036850/livesports.xml";
+parse_xml_to_strms($url,$folder_name, "livesports.xml");
 
-if (empty($persisten_data)){
-	//There is no file, we create one
-	echo "NO FILE";
-	save_persistent_data($data, $persistent_file_name);
-}
-
-$data = array("last_file_md5"=>md5(file_get_contents($url)));
-
-if (check_new_content($url, $persisten_data['last_file_md5'])==true){
-	//There is new content
-	echo "NEW CONTENT";
-	parse_xml_to_strms($url,$folder_name);
-	save_persistent_data($data, $persistent_file_name);
-}else{
-	echo "NO NEW CONTENT";
-}
+$folder_name="channels4";
+$url="http://dl.dropboxusercontent.com/u/108091935/Lista.xml";
+parse_xml_to_strms($url,$folder_name, "Lista.xml");
 
 ?>
