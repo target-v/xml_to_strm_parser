@@ -2,24 +2,14 @@
 //Include script functions
 include_once 'functions.php';
 
-$folder_name="channels1";
-$url="https://www.dropbox.com/s/d7nqkfxh0hn9y9g/streams.xml";
-parse_xml_to_strms($url,$folder_name, "streams.xml");
+parse_xml_to_strms("https://www.dropbox.com/s/d7nqkfxh0hn9y9g/streams.xml","channels1");
 
-$folder_name="channels2";
-$url="http://dl.dropbox.com/u/4735170/streams.xml";
-parse_xml_to_strms($url,$folder_name, "streams.xml");
+parse_xml_to_strms("http://dl.dropbox.com/u/4735170/streams.xml","channels2");
 
-$folder_name="channels3";
-$url="http://dl.dropboxusercontent.com/u/142085967/Lista.xml";
-parse_xml_to_strms($url,$folder_name, "Lista.xml");
+parse_xml_to_strms("http://dl.dropboxusercontent.com/u/142085967/Lista2.xml","channels3");
 
-$folder_name="channels4";
-$url="http://dl.dropboxusercontent.com/u/8036850/livesports.xml";
-parse_xml_to_strms($url,$folder_name, "livesports.xml");
+parse_xml_to_strms("http://dl.dropboxusercontent.com/u/8036850/livesports.xml","channels4");
 
-$folder_name="channels5";
-$url="http://dl.dropboxusercontent.com/u/108091935/Lista.xml";
-parse_xml_to_strms($url,$folder_name, "Lista.xml");
+parse_xml_to_strms("http://dl.dropboxusercontent.com/u/108091935/Lista.xml","channels5");
 
 ?>

@@ -19,7 +19,9 @@ function save_persistent_data($data, $file_name){
 }
 
 
-function parse_xml_to_strms($url, $folder_name, $file_name){
+function parse_xml_to_strms($url, $folder_name){
+	
+	$file_name = basename($url);
 
 	exec("wget ".$url." ".dirname(__FILE__)."/");
 
