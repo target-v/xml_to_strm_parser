@@ -21,9 +21,9 @@ function save_persistent_data($data, $file_name){
 
 function parse_xml_to_strms($url, $folder_name){
 	
-	$file_name = basename($url);
+	$file_name = $folder_name.".xml";
 
-	exec("wget ".$url." ".dirname(__FILE__)."/");
+	exec("wget ".$url." ".dirname(__FILE__)."/ -O ".$file_name);
 
 	//Inser file lines into array
 	$handle = fopen($file_name, "r");
@@ -33,6 +33,7 @@ function parse_xml_to_strms($url, $folder_name){
 		$line_array[$i]=$line;
 		$i++;
 	}
+	fclose($handle);
 	//remove innecesary file
 	exec("rm ".dirname(__FILE__)."/".$file_name);
 
@@ -61,7 +62,8 @@ function parse_xml_to_strms($url, $folder_name){
 		}
 		$j++;
 	}
-
+	unset($rtmp_array);
+	unset($line_array);
 }
 
 function clean_n($str){
