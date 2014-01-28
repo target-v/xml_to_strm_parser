@@ -65,7 +65,7 @@ function parse_xml_to_strms($url, $folder_name){
 }
 
 function clean_n($str){
-	return preg_replace("/[^a-zA-Z0-9+]/", "",$str);
+	return preg_replace("/[^a-zA-Z0-9+_]/", "",$str);
 }
 
 
