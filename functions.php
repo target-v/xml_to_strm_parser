@@ -1,23 +1,5 @@
 <?php
 
-function check_new_content($url, $hash_md5){
-        if(md5(file_get_contents($url))==$hash_md5){
-                return false;
-        }else{
-                return true;
-        }
-}
-
-function load_persistent_data(&$data, $file_name){
-        $content=file_get_contents(dirname(__FILE__)."/".$file_name);
-        $data=unserialize($content);
-}
-
-function save_persistent_data($data, $file_name){
-        $string = serialize($data);
-        return file_put_contents(dirname(__FILE__)."/".$file_name, $string);
-}
-
 
 function parse_xml_to_strms($url, $folder_name){
 	
